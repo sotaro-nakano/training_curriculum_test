@@ -19,6 +19,8 @@ class CalendarsController < ApplicationController
   end
 
   def get_week
+    wdays = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)']
+
     @todays_date = Date.today
     @week_days = []
 
@@ -31,9 +33,12 @@ class CalendarsController < ApplicationController
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
 
+      wday_num = (@todays_date + x).wday
+
       day = {
         month: (@todays_date + x).month,
         date: (@todays_date + x).day,
+        week_day: wdays[wday_num],
         plans: today_plans
       }
 
